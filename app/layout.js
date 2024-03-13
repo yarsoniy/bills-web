@@ -11,11 +11,12 @@ export const metadata = {
 
 export default function RootLayout({ children }) {
   return (
-    <>
-      <CssBaseline />
-      <html lang="en">
-        <body>{children}</body>
-      </html>
-    </>
+    <html lang="en">
+      <body>
+        {/* CssBaseline kickstart an elegant, consistent, and simple baseline to build upon. */}
+        <CssBaseline />
+        {children}
+      </body>
+    </html>
   );
 }
