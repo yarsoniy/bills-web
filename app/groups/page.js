@@ -1,5 +1,6 @@
 'use client'
 
+import { Button } from "@mui/material";
 import { useState } from "react";
 
 export default function GroupsPage() {
@@ -15,7 +16,7 @@ export default function GroupsPage() {
   return (
     <>
       <h1>Groups Page</h1>
-      <button onClick={handleClick}>Click me! {count}</button>
+      <Button variant="contained" onClick={handleClick}>Hello world {count}</Button>
     </>
   )
 }
