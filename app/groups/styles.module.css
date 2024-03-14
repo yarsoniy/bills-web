@@ -1,0 +1,15 @@
+.details {
+  padding: 10px;
+}
+.createdAt {
+  font-size: small;
+}
+.participants {
+  padding: 10px;
+}
+
+.fab {
+  position: fixed;
+  bottom: 30px;
+  right: 30px;
+}
