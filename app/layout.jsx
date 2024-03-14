@@ -2,7 +2,7 @@ import '@fontsource/roboto/300.css';
 import '@fontsource/roboto/400.css';
 import '@fontsource/roboto/500.css';
 import '@fontsource/roboto/700.css';
-import { CssBaseline } from '@mui/material';
+import { Container, CssBaseline } from '@mui/material';
 
 export const metadata = {
   title: "Create Next App",
@@ -15,7 +15,9 @@ export default function RootLayout({ children }) {
       <body>
         {/* CssBaseline kickstart an elegant, consistent, and simple baseline to build upon. */}
         <CssBaseline />
-        {children}
+        <Container>
+          {children}
+        </Container>
       </body>
     </html>
   );

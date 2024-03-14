@@ -3,11 +3,13 @@
 import { Container, Fab, Paper } from "@mui/material"
 import Grid from "@mui/material/Unstable_Grid2/Grid2"
 import GroupListItem from "./components/GroupListItem"
-import FavoriteIcon from '@mui/icons-material/Favorite';
+import AddIcon from '@mui/icons-material/Add';
 import styles from "./styles.module.css"
 import { useState } from "react";
+import { useRouter } from "next/navigation";
 
 export default function GroupsPage() {
+  const router = useRouter();
   const [data, setData] = useState([
     {
       id: '1',
@@ -34,7 +36,6 @@ export default function GroupsPage() {
   ]);
 
   const groupItems = data.map((group) => {
-    console.log(group)
     return (
       <Grid xs={12}>
         <GroupListItem key={group.id} group={group}></GroupListItem>
@@ -42,16 +43,18 @@ export default function GroupsPage() {
     )
   })
 
+  const handleAddGroupClick = () => {
+    router.push("/groups/new");
+  }
+
   return (
     <>
-      <Container>
-        <Grid container spacing={2}>
-          {groupItems}
-        </Grid>
-        <Fab className={styles.fab} size="large" color="primary" aria-label="add">
-          <FavoriteIcon />
-        </Fab>
-      </Container>
+      <Grid container spacing={2}>
+        {groupItems}
+      </Grid>
+      <Fab className={styles.fab} size="large" color="primary" aria-label="add" onClick={handleAddGroupClick}>
+        <AddIcon />
+      </Fab>
     </>
   )
 }
