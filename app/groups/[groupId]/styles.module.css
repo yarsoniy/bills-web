@@ -1,0 +1,16 @@
+.loader {
+  display: flex;
+  justify-content: center;
+}
+.details {
+  padding: 10px;
+}
+.createdAt {
+  font-size: small;
+}
+.participants {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px;
+}

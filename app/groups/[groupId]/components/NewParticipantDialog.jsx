@@ -1,8 +1,8 @@
 import { Button, Dialog, DialogActions, DialogContent, DialogTitle, TextField } from "@mui/material";
 import { useState } from "react";
 
-export default function NewGroupDialog({open, onClose, onSave}) {
-  const [groupTitle, setGroupTitle] = useState('');
+export default function NewParticipantDialog({groupId, open, onClose, onSave}) {
+  const [inputValue, setInputValue] = useState('');
   const [waitingSave, setWaitingSave] = useState(false);
 
   const handleSave = () => {
@@ -13,10 +13,10 @@ export default function NewGroupDialog({open, onClose, onSave}) {
 
     (async () => {
       try {
-        const response = await fetch('/api/v1/participant_group/', {
+        const response = await fetch('/api/v1/participant_group/'+groupId+'/participant', {
           method: 'POST',
           body: JSON.stringify({
-            title: groupTitle
+            name: inputValue
           })
         });
         if (response.status !== 200) {
@@ -31,19 +31,15 @@ export default function NewGroupDialog({open, onClose, onSave}) {
     })();
   }
 
-  const handleGroupTitleChange = (e) => {
-    setGroupTitle(e.target.value);
+  const handleParticipantNameChange = (e) => {
+    setInputValue(e.target.value);
   }
 
   return (
     <Dialog open={open} onClose={onClose}>
-      <DialogTitle>New group</DialogTitle>
+      <DialogTitle>New participant</DialogTitle>
       <DialogContent>
-        <TextField
-          label="Group title"
-          margin="dense"
-          onChange={handleGroupTitleChange}
-        />
+        <TextField label="Name" margin="dense" onChange={handleParticipantNameChange}/>
       </DialogContent>
       <DialogActions>
         <Button onClick={onClose}>Cancel</Button>
