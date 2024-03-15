@@ -1,15 +1,16 @@
 'use client'
 
-import { Container, Fab, Paper } from "@mui/material"
+import { Button, Container, Dialog, DialogContent, DialogTitle, Fab, Paper } from "@mui/material"
 import Grid from "@mui/material/Unstable_Grid2/Grid2"
 import GroupListItem from "./components/GroupListItem"
 import AddIcon from '@mui/icons-material/Add';
 import styles from "./styles.module.css"
 import { useState } from "react";
 import { useRouter } from "next/navigation";
+import NewGroupDialog from "./components/NewGroupDialog";
 
 export default function GroupsPage() {
-  const router = useRouter();
+  const [openNewGroupDialog, setOpenNewGroupGialog] = useState(false);
   const [data, setData] = useState([
     {
       id: '1',
@@ -43,8 +44,12 @@ export default function GroupsPage() {
     )
   })
 
-  const handleAddGroupClick = () => {
-    router.push("/groups/new");
+  const handleOpenNewGroupDialog = () => {
+    setOpenNewGroupGialog(true);
+  }
+
+  const handleCloseNewGroupDialog = () => {
+    setOpenNewGroupGialog(false);
   }
 
   return (
@@ -52,9 +57,10 @@ export default function GroupsPage() {
       <Grid container spacing={2}>
         {groupItems}
       </Grid>
-      <Fab className={styles.fab} size="large" color="primary" aria-label="add" onClick={handleAddGroupClick}>
+      <Fab className={styles.fab} size="large" color="primary" aria-label="add" onClick={handleOpenNewGroupDialog}>
         <AddIcon />
       </Fab>
+      <NewGroupDialog open={openNewGroupDialog} onClose={handleCloseNewGroupDialog}/>
     </>
   )
 }
