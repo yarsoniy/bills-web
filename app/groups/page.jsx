@@ -6,7 +6,7 @@ import GroupListItem from "./components/GroupListItem"
 import AddIcon from '@mui/icons-material/Add';
 import styles from "./styles.module.css"
 import {useEffect, useState} from "react";
-import NewGroupDialog from "./components/NewGroupDialog";
+import SingleTextDialog from "@/app/components/SingleTextDialog";
 
 export default function GroupsPage() {
   const [openNewGroupDialog, setOpenNewGroupGialog] = useState(false);
@@ -22,8 +22,8 @@ export default function GroupsPage() {
 
   const groupItems = data.map((group) => {
     return (
-      <Grid xs={12}>
-          <GroupListItem key={group.id} group={group}></GroupListItem>
+      <Grid key={group.id} xs={12}>
+          <GroupListItem group={group}></GroupListItem>
       </Grid>
     )
   })
@@ -36,7 +36,14 @@ export default function GroupsPage() {
     setOpenNewGroupGialog(false);
   }
 
-  const handleSaveNewGroup = () => {
+  const handleSaveNewGroup = async (input) => {
+    const response = await fetch('/api/v1/participant_group/', {
+      method: 'POST',
+      body: JSON.stringify({title: input})
+    });
+    if (response.status !== 200) {
+      throw new Error('Request failed');
+    }
     setNewGroupSaved(true);
   }
 
@@ -48,7 +55,9 @@ export default function GroupsPage() {
       <Fab className={styles.fab} size="large" color="primary" aria-label="add" onClick={handleOpenNewGroupDialog}>
         <AddIcon />
       </Fab>
-      <NewGroupDialog
+      <SingleTextDialog
+        title="New group"
+        inputLabel="Title"
         open={openNewGroupDialog}
         onClose={handleCloseNewGroupDialog}
         onSave={handleSaveNewGroup}

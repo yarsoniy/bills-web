@@ -1,8 +1,8 @@
 import {Chip, Divider, IconButton, Paper, Stack} from "@mui/material";
 import styles from "../styles.module.css";
 import AddIcon from "@mui/icons-material/Add";
-import NewParticipantDialog from "@/app/groups/[groupId]/components/NewParticipantDialog";
 import {useEffect, useState} from "react";
+import SingleTextDialog from "@/app/components/SingleTextDialog";
 
 export default function Group({groupId}) {
   const [group, setGroup] = useState(null);
@@ -24,7 +24,14 @@ export default function Group({groupId}) {
   const handleNewParticipantDialogClose = () => {
     setOpenNewParticipantDialog(false);
   }
-  const handleNewParticipantSaved = () => {
+  const handleNewParticipantSave = async (input) => {
+    const response = await fetch('/api/v1/participant_group/'+groupId+'/participant', {
+      method: 'POST',
+      body: JSON.stringify({name: input})
+    });
+    if (response.status !== 200) {
+      throw new Error('Request failed');
+    }
     setGroupOutdated(true);
   }
 
@@ -49,11 +56,12 @@ export default function Group({groupId}) {
         <IconButton onClick={handleAddParticipantClick}>
           <AddIcon />
         </IconButton>
-        <NewParticipantDialog
-          groupId={groupId}
+        <SingleTextDialog
+          title="New participant"
+          inputLabel="Name"
           open={openNewParticipantDialog}
           onClose={handleNewParticipantDialogClose}
-          onSave={handleNewParticipantSaved}
+          onSave={handleNewParticipantSave}
         />
       </div>
     </Paper>
