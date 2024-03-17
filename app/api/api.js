@@ -40,5 +40,22 @@ export const api = {
     const response = await fetch('/api/v1/participant_group/' + groupId + '/bill');
     const data = await response.json();
     return data.data;
+  },
+  getBill: async(billId) => {
+    const response = await fetch('/api/v1/bill/' + billId);
+    const data = await response.json();
+    return data.data;
+  },
+  createBillItem: async(billId, title, cost) => {
+    const response = await fetch('/api/v1/bill/'+billId+'/item', {
+      method: 'POST',
+      body: JSON.stringify({
+        title: title,
+        cost: cost
+      })
+    });
+    if (response.status !== 200) {
+      throw new Error('Request failed');
+    }
   }
 }

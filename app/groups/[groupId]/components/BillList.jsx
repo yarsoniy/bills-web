@@ -1,4 +1,4 @@
-import {Button, ListItem, ListItemText} from "@mui/material";
+import {Button, ListItem, ListItemButton, ListItemText} from "@mui/material";
 import List from "@mui/material/List";
 import SingleTextDialog from "@/app/components/SingleTextDialog";
 import {api} from "@/app/api/api";
@@ -39,12 +39,14 @@ export default function BillList({groupId}) {
       </div>
       <List>
         {bills.map((bill) =>
-          <ListItem id={bill.id}>
-            <div className={styles.billListItem}>
-              <ListItemText primary={bill.title} secondary={bill.createdAt} />
-              <p>{bill.totalCost}</p>
-            </div>
-          </ListItem>
+          <ListItemButton key={bill.id} href={"/bills/"+ bill.id}>
+            <ListItem>
+              <div className={styles.billListItem}>
+                <ListItemText primary={bill.title} secondary={bill.createdAt} />
+                <p>{bill.totalCost}</p>
+              </div>
+            </ListItem>
+          </ListItemButton>
         )}
       </List>
     </>
