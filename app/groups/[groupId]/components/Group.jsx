@@ -3,6 +3,7 @@ import styles from "../styles.module.css";
 import AddIcon from "@mui/icons-material/Add";
 import {useEffect, useState} from "react";
 import SingleTextDialog from "@/app/components/SingleTextDialog";
+import {api} from "@/app/api/api";
 
 export default function Group({groupId}) {
   const [group, setGroup] = useState(null);
@@ -10,12 +11,10 @@ export default function Group({groupId}) {
   const [openNewParticipantDialog, setOpenNewParticipantDialog] = useState(false);
 
   useEffect(() => {
-    fetch('/api/v1/participant_group/' + groupId)
-      .then((response) => response.json())
-      .then((data) => {
-        setGroup(data.data);
-        setGroupOutdated(false);
-      })
+    api.getGroup(groupId).then((data) => {
+      setGroup(data);
+      setGroupOutdated(false);
+    });
   }, [groupId, groupOutdated])
 
   const handleAddParticipantClick = () => {
@@ -25,13 +24,7 @@ export default function Group({groupId}) {
     setOpenNewParticipantDialog(false);
   }
   const handleNewParticipantSave = async (input) => {
-    const response = await fetch('/api/v1/participant_group/'+groupId+'/participant', {
-      method: 'POST',
-      body: JSON.stringify({name: input})
-    });
-    if (response.status !== 200) {
-      throw new Error('Request failed');
-    }
+    await api.createParticipant(groupId, input);
     setGroupOutdated(true);
   }
 

@@ -7,7 +7,7 @@ export default function GroupListItem({group}) {
     <Paper>
       <div className={styles.details}>
         <h3>
-            <Link href={"/groups/" + group.id}>{group.title}</Link>
+          <Link href={"/groups/" + group.id}>{group.title}</Link>
         </h3>
         <div className={styles.createdAt}>{group.createdAt}</div>
       </div>
@@ -15,9 +15,7 @@ export default function GroupListItem({group}) {
       <div className={styles.participants}>
         {!group.participants.length ? "No participants" : ""}
         <Stack direction="row" spacing={0.5} flexWrap="wrap" useFlexGap>
-          {group.participants.map((p) => {
-            return <Chip key={p.id} label={p.name}></Chip>
-          })}
+          {group.participants.map((p) => <Chip key={p.id} label={p.name}></Chip>)}
         </Stack>
       </div>
     </Paper>
