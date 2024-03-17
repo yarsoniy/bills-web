@@ -35,5 +35,10 @@ export const api = {
     if (response.status !== 200) {
       throw new Error('Request failed');
     }
+  },
+  getBills: async(groupId) => {
+    const response = await fetch('/api/v1/participant_group/' + groupId + '/bill');
+    const data = await response.json();
+    return data.data;
   }
 }

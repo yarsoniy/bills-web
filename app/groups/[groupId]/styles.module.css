@@ -14,3 +14,13 @@
   align-items: center;
   padding: 10px;
 }
+.newBillBtnContainer {
+  display: flex;
+  justify-content: center;
+  margin: 20px;
+}
+.billListItem {
+  display: flex;
+  width: 100%;
+  justify-content: space-between;
+}
