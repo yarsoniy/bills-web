@@ -5,13 +5,21 @@ import {api} from "@/app/api/api";
 import styles from "./styles.module.css";
 import List from "@mui/material/List";
 import {Button, ListItem, ListItemButton, ListItemText} from "@mui/material";
-import AddBillItemDialog from "@/app/bills/[billId]/components/AddBillItemDialog";
+import AddBillItemDialog from "@/app/groups/[groupId]/bills/[billId]/components/AddBillItemDialog";
+import BallanceDetailsTable from "@/app/groups/[groupId]/bills/[billId]/components/BillParticipantSummary";
+import BillParticipantSummary from "@/app/groups/[groupId]/bills/[billId]/components/BillParticipantSummary";
 
 export default function BillPage({params}) {
+  const [group, setGroup] = useState(null);
   const [bill, setBill] = useState(null);
   const [billUpdated, setBillUpdated] = useState(false);
   const [openAddItemDialog, setOpenAddItemDialog] = useState(false);
 
+  useEffect(() => {
+    api.getGroup(params.groupId).then((data) => {
+      setGroup(data);
+    });
+  }, []);
   useEffect(() => {
     api.getBill(params.billId).then((bill) => {
       setBill(bill);
@@ -30,7 +38,7 @@ export default function BillPage({params}) {
     setBillUpdated(true);
   }
 
-  if (!bill) {
+  if (!bill || !group) {
     return <div className={styles.loader}>Loading...</div>
   }
 
@@ -39,6 +47,7 @@ export default function BillPage({params}) {
       <p>Title: {bill.title}</p>
       <p>{bill.createdAt}</p>
       <p>Total cost: {bill.totalCost}</p>
+      <BillParticipantSummary participants={group.participants} billId={bill.id} />
       <div className={styles.addBillItemBtnContainer}>
         <Button variant="contained" onClick={handleAddItemClick}>Add item</Button>
         <AddBillItemDialog
@@ -49,7 +58,7 @@ export default function BillPage({params}) {
       </div>
       <List>
         {bill.items.map((billItem) =>
-          <ListItemButton key={billItem.id} href="">
+          <ListItemButton className={styles.billItemContainer} key={billItem.id} href="">
             <ListItem>
               <ListItemText primary={billItem.title} secondary={billItem.cost} />
             </ListItem>

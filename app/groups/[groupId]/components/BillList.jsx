@@ -39,7 +39,7 @@ export default function BillList({groupId}) {
       </div>
       <List>
         {bills.map((bill) =>
-          <ListItemButton key={bill.id} href={"/bills/"+ bill.id}>
+          <ListItemButton key={bill.id} href={"/groups/"+groupId+"/bills/"+ bill.id}>
             <ListItem>
               <div className={styles.billListItem}>
                 <ListItemText primary={bill.title} secondary={bill.createdAt} />

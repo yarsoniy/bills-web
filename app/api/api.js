@@ -57,5 +57,19 @@ export const api = {
     if (response.status !== 200) {
       throw new Error('Request failed');
     }
+  },
+  getBillParticipantSummary: async(billId) => {
+    const response = await fetch('/api/v1/bill/'+billId+'/participant_summary');
+    const data = await response.json();
+    return data.data;
+  },
+  putBillParticipantDeposits: async(billId, deposits) => {
+    const response = await fetch('/api/v1/bill/'+billId+'/deposits', {
+      method: 'PUT',
+      body: JSON.stringify(deposits)
+    });
+    if (response.status !== 200) {
+      throw new Error('Request failed');
+    }
   }
 }
