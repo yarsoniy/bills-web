@@ -1,4 +1,13 @@
-import {Button, IconButton, Table, TableBody, TableCell, TableContainer, TableRow, Card, CardHeader} from "@mui/material";
+import {
+  Button,
+  IconButton,
+  Table,
+  TableBody,
+  TableCell,
+  TableContainer,
+  TableRow,
+  Card,
+} from "@mui/material";
 import EastIcon from '@mui/icons-material/East';
 import ClearIcon from '@mui/icons-material/Clear';
 import ParticipantMultiSelect from "@/app/groups/[groupId]/bills/[billId]/items/[itemId]/components/ParticipantMultiSelect";
