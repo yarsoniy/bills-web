@@ -58,7 +58,11 @@ export default function BillPage({params}) {
       </div>
       <List>
         {bill.items.map((billItem) =>
-          <ListItemButton className={styles.billItemContainer} key={billItem.id} href="">
+          <ListItemButton
+            className={styles.billItemContainer}
+            key={billItem.id}
+            href={"/groups/"+group.id+"/bills/"+bill.id+"/items/"+billItem.id}
+          >
             <ListItem>
               <ListItemText primary={billItem.title} secondary={billItem.cost} />
             </ListItem>

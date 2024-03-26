@@ -63,7 +63,7 @@ export default ({billId, participants}) => {
                 Deposit
               </TableCell>
               <TableCell align="right">Share</TableCell>
-              <TableCell align="right">Ballance</TableCell>
+              <TableCell align="right">Balance</TableCell>
             </TableRow>
           </TableHead>
           <TableBody>

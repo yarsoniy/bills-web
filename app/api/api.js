@@ -71,5 +71,23 @@ export const api = {
     if (response.status !== 200) {
       throw new Error('Request failed');
     }
-  }
+  },
+  getBillItem: async(billId, itemId) => {
+    const response = await fetch(`/api/v1/bill/${billId}/item/${itemId}`);
+    const data = await response.json();
+    return data.data;
+  },
+  putBillItem: async(billId, billItemId, title, cost, agreement) => {
+    const response = await fetch('/api/v1/bill/'+billId+'/item/'+billItemId, {
+      method: 'PUT',
+      body: JSON.stringify({
+        title: title,
+        cost: cost,
+        agreement: agreement
+      })
+    });
+    if (response.status !== 200) {
+      throw new Error('Request failed');
+    }
+  },
 }

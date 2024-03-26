@@ -1,0 +1,25 @@
+.loader {
+  display: flex;
+  justify-content: center;
+}
+.headerContainer {
+  display: flex;
+  justify-content: space-between;
+}
+.saveBtnContainer {
+  margin: 20px 0;
+}
+.textField {
+  display: block;
+  margin: 20px 0;
+}
+.addSplitRuleBtnContainer {
+  display: flex;
+  justify-content: center;
+}
+.costBreakdownContainer {
+  margin: 20px 0;
+}
+.splitAgreementContainer {
+  margin: 20px 0;
+}
