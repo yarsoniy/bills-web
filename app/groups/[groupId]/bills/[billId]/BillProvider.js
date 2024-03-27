@@ -9,15 +9,15 @@ export const BillContext = createContext(null);
 
 export default function BillProvider({children}) {
   const params = useParams();
-  const [bill, setBill] = useState(null);
+  const [data, setData] = useState(null);
 
   useEffect(() => {
-    api.getBill(params.billId).then(bill => {setBill(bill)})
+    api.getBill(params.billId).then(data => {setData(data)})
   }, [params.billId]);
 
-  if (!bill) {
+  if (!data) {
     return <Loader/>
   }
 
-  return <BillContext.Provider value={bill}>{children}</BillContext.Provider>;
+  return <BillContext.Provider value={data}>{children}</BillContext.Provider>;
 }

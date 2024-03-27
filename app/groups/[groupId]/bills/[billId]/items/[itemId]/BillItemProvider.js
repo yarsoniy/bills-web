@@ -9,16 +9,15 @@ export const BillItemContext = createContext(null);
 
 export default function BillItemProvider({children}) {
   const params = useParams();
-  const [billItem, setBillItem] = useState(null);
+  const [data, setData] = useState(null);
 
   useEffect(() => {
-    api.getBillItem(params.billId, params.itemId).then((billItem) => {setBillItem(billItem)})
+    api.getBillItem(params.billId, params.itemId).then((data) => {setData(data)})
   }, [params.billId, params.itemId]);
 
-  return <Loader/>
-  if (!billItem) {
+  if (!data) {
     return <Loader/>
   }
 
-  return <BillItemContext.Provider value={billItem}>{children}</BillItemContext.Provider>;
+  return <BillItemContext.Provider value={data}>{children}</BillItemContext.Provider>;
 }

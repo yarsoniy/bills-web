@@ -1,6 +1,6 @@
 
 import styles from "./styles.module.css";
-import {CircularProgress, Modal} from "@mui/material";
+import {CircularProgress} from "@mui/material";
 
 export default function Loader() {
   return (
