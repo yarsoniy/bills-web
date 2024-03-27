@@ -23,3 +23,14 @@
 .splitAgreementContainer {
   margin: 20px 0;
 }
+.splitArgeementTable {
+  table-layout: fixed;
+}
+.splitArgeementCellRemove {
+  padding-left: 0;
+  padding-right: 0;
+  width: 40px;
+}
+.splitArgeementCellSelect {
+  padding-left: 0;
+}

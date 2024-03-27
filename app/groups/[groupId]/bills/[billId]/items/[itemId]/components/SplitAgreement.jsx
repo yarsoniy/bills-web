@@ -8,7 +8,6 @@ import {
   TableRow,
   Card,
 } from "@mui/material";
-import EastIcon from '@mui/icons-material/East';
 import ClearIcon from '@mui/icons-material/Clear';
 import ParticipantMultiSelect from "@/app/groups/[groupId]/bills/[billId]/items/[itemId]/components/ParticipantMultiSelect";
 import styles from "../styles.module.css";
@@ -41,16 +40,16 @@ export default function SplitAgreement({participants, splitRules, onChange}) {
     <Card className={styles.splitAgreementContainer}>
       <div>Split agreement</div>
       <TableContainer>
-        <Table>
+        <Table className={styles.splitArgeementTable}>
           <TableBody>
             {splitRules.map((rule, idx) =>
               <TableRow key={idx}>
-                <TableCell>
+                <TableCell className={styles.splitArgeementCellRemove}>
                   <IconButton onClick={() => handleRemoveSplitRule(idx)}>
                     <ClearIcon/>
                   </IconButton>
                 </TableCell>
-                <TableCell>
+                <TableCell align="center" className={styles.splitArgeementCellSelect}>
                   <ParticipantMultiSelect
                     label="Who pays"
                     participants={participants}
@@ -58,10 +57,7 @@ export default function SplitAgreement({participants, splitRules, onChange}) {
                     onSelect={(selected) => {handlePayerSelect(idx, selected)}}
                   />
                 </TableCell>
-                <TableCell align="center">
-                  <EastIcon/>
-                </TableCell>
-                <TableCell>
+                <TableCell align="center" className={styles.splitArgeementCellSelect}>
                   <ParticipantMultiSelect
                     label="For whom"
                     participants={participants}
