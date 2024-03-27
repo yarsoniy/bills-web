@@ -1,6 +1,6 @@
 'use client';
 
-import {useContext, useEffect, useState} from "react";
+import {useContext, useState} from "react";
 import {api} from "@/app/api/api";
 import styles from "./styles.module.css";
 import List from "@mui/material/List";
@@ -25,10 +25,6 @@ export default function BillPage() {
   }
   const handleSaveAddItemDialog = async (title, cost) => {
     await api.createBillItem(bill.id, title, cost);
-  }
-
-  if (!bill || !group) {
-    return <div className={styles.loader}>Loading...</div>
   }
 
   return (

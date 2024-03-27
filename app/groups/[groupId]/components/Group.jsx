@@ -1,7 +1,7 @@
 import {Chip, Divider, IconButton, Paper, Stack} from "@mui/material";
 import styles from "../styles.module.css";
 import AddIcon from "@mui/icons-material/Add";
-import {useContext, useEffect, useState} from "react";
+import {useContext, useState} from "react";
 import SingleTextDialog from "@/app/components/SingleTextDialog";
 import {api} from "@/app/api/api";
 import {GroupContext} from "@/app/groups/[groupId]/GroupProvider";
@@ -19,10 +19,6 @@ export default function Group() {
   }
   const handleNewParticipantSave = async (input) => {
     await api.createParticipant(group.id, input);
-  }
-
-  if (!group) {
-    return <div className={styles.loader}>Loading...</div>
   }
 
   return (

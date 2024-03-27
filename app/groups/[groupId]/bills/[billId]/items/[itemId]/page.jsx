@@ -48,10 +48,6 @@ export default function BillItemPage({params}) {
     );
   }
 
-  if (!group || !bill ||!billItem) {
-    return <div className={styles.loader}>Loading...</div>
-  }
-
   const shares = {};
   group.participants.map((p) => {
     shares[p.id] = billItem.costBreakdown.values[p.id];
