@@ -13,7 +13,7 @@ export default function BillList({groupId}) {
     api.getBills(groupId).then((data) => {
       setBills(data)
     });
-  }, []);
+  }, [groupId]);
 
   const handleNewBillClick = () => {
     setOpenNewBillDialog(true);

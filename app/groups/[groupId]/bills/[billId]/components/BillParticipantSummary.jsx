@@ -4,7 +4,7 @@ import {api} from "@/app/api/api";
 import EditIcon from "@mui/icons-material/Edit";
 import EditDepositsDialog from "@/app/groups/[groupId]/bills/[billId]/components/EditDepositsDialog";
 
-export default ({billId, participants}) => {
+export default function BillParticipantSummary({billId, participants}) {
   const [summaryChanged, setSummaryChanged] = useState(false);
   const [summary, setSummary] = useState({
     deposits: {values: {}},
@@ -31,7 +31,7 @@ export default ({billId, participants}) => {
       setSummary(data);
       setSummaryChanged(false)
     })
-  }, [summaryChanged]);
+  }, [billId, summaryChanged]);
 
   const [deposits, breakdown, balance] = [{}, {}, {}];
   for (let index in participants) {

@@ -11,7 +11,7 @@ import {
   TableRow, TextField
 } from "@mui/material";
 
-export default ({participants, initialValues, open, onClose, onSave}) => {
+export default function EditDepositsDialog({participants, initialValues, open, onClose, onSave}) {
   const [waitingSave, setWaitingSave] = useState(false);
   const [deposits, setDeposits] = useState(initialValues);
 

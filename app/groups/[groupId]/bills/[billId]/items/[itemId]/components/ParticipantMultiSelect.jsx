@@ -11,7 +11,7 @@ const MenuProps = {
   },
 };
 
-export default ({label, participants, selected, onSelect}) => {
+export default function ParticipantMultiSelect({label, participants, selected, onSelect}) {
   const participantNames = {};
   participants.map((p) => {
     participantNames[p.id] = p.name;

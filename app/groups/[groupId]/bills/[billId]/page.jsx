@@ -19,13 +19,13 @@ export default function BillPage({params}) {
     api.getGroup(params.groupId).then((data) => {
       setGroup(data);
     });
-  }, []);
+  }, [params.groupId]);
   useEffect(() => {
     api.getBill(params.billId).then((bill) => {
       setBill(bill);
       setBillUpdated(false);
     })
-  }, [billUpdated]);
+  }, [params.billId, billUpdated]);
 
   const handleAddItemClick = () => {
     setOpenAddItemDialog(true);

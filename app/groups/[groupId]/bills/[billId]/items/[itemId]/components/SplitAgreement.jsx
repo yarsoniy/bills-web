@@ -13,7 +13,7 @@ import ClearIcon from '@mui/icons-material/Clear';
 import ParticipantMultiSelect from "@/app/groups/[groupId]/bills/[billId]/items/[itemId]/components/ParticipantMultiSelect";
 import styles from "../styles.module.css";
 
-export default ({participants, splitRules, onChange}) => {
+export default function SplitAgreement({participants, splitRules, onChange}) {
   const handleAddSplitRule = () => {
     const newSplitRules = [...splitRules, {
       itemPayers: [],

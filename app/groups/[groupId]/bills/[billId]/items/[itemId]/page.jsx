@@ -7,7 +7,7 @@ import {Button, TextField} from "@mui/material";
 import BillItemShares from "@/app/groups/[groupId]/bills/[billId]/items/[itemId]/components/BillItemShares";
 import SplitAgreement from "@/app/groups/[groupId]/bills/[billId]/items/[itemId]/components/SplitAgreement";
 
-export default ({params}) => {
+export default function BillItemPage({params}) {
   const [group, setGroup] = useState(null);
   const [bill, setBill] = useState(null);
   const [billItem, setBillItem] = useState(null);
@@ -20,12 +20,12 @@ export default ({params}) => {
     api.getGroup(params.groupId).then((data) => {
       setGroup(data);
     });
-  }, []);
+  }, [params.groupId]);
   useEffect(() => {
     api.getBill(params.billId).then((bill) => {
       setBill(bill);
     })
-  }, []);
+  }, [params.billId]);
   useEffect(() => {
     api.getBillItem(params.billId, params.itemId).then((billItem) => {
       setBillItem(billItem);
@@ -34,7 +34,7 @@ export default ({params}) => {
       setSplitRules(billItem.agreement.rules);
       setBillItemUpdated(false);
     })
-  }, [billItemUpdated]);
+  }, [params.billId, params.itemId, billItemUpdated]);
 
   const handleTitleChange = (e) => {
     setBillItemTitle(e.target.value);

@@ -1,7 +1,7 @@
 import {Button, Dialog, DialogActions, DialogContent, DialogTitle, Stack, TextField} from "@mui/material";
 import {useState} from "react";
 
-export default ({open, onSave, onClose}) => {
+export default function AddBillItemDialog({open, onSave, onClose}) {
   const [waitingSave, setWaitingSave] = useState(false);
   const [title, setTitle] = useState('');
   const [cost, setCost] = useState('');

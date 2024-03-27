@@ -1,7 +1,7 @@
 import {Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Card} from "@mui/material";
 import styles from '../styles.module.css'
 
-export default ({participants, shares}) => {
+export default function BillItemShares({participants, shares}) {
   return (
     <Card className={styles.costBreakdownContainer}>
       <div>Cost breakdown</div>
