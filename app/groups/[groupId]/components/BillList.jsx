@@ -4,8 +4,10 @@ import SingleTextDialog from "@/app/components/SingleTextDialog";
 import {api} from "@/app/api/api";
 import {useEffect, useState} from "react";
 import styles from "../styles.module.css"
+import {useRouter} from "next/navigation";
 
 export default function BillList({groupId}) {
+  const router = useRouter();
   const [openNewBillDialog, setOpenNewBillDialog] = useState(false);
   const [bills, setBills] = useState([]);
 
@@ -39,7 +41,7 @@ export default function BillList({groupId}) {
       </div>
       <List>
         {bills.map((bill) =>
-          <ListItemButton key={bill.id} href={"/groups/"+groupId+"/bills/"+ bill.id}>
+          <ListItemButton key={bill.id} onClick={() => router.push("/groups/"+groupId+"/bills/"+ bill.id)}>
             <ListItem>
               <div className={styles.billListItem}>
                 <ListItemText primary={bill.title} secondary={bill.createdAt} />

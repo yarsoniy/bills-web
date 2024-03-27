@@ -1,40 +1,32 @@
 'use client';
 
-import {useEffect, useState} from "react";
+import {useContext, useEffect, useState} from "react";
 import {api} from "@/app/api/api";
 import styles from "@/app/groups/[groupId]/bills/[billId]/items/[itemId]/styles.module.css";
 import {Button, TextField} from "@mui/material";
 import BillItemShares from "@/app/groups/[groupId]/bills/[billId]/items/[itemId]/components/BillItemShares";
 import SplitAgreement from "@/app/groups/[groupId]/bills/[billId]/items/[itemId]/components/SplitAgreement";
+import {GroupContext} from "@/app/groups/[groupId]/GroupProvider";
+import {BillContext} from "@/app/groups/[groupId]/bills/[billId]/BillProvider";
+import {BillItemContext} from "@/app/groups/[groupId]/bills/[billId]/items/[itemId]/BillItemProvider";
 
 export default function BillItemPage({params}) {
-  const [group, setGroup] = useState(null);
-  const [bill, setBill] = useState(null);
-  const [billItem, setBillItem] = useState(null);
-  const [billItemTitle, setBillItemTitle] = useState(null);
-  const [billItemCost, setBillItemCost] = useState(null);
+  const group = useContext(GroupContext);
+  const bill = useContext(BillContext);
+  const billItem = useContext(BillItemContext);
+
+  const [billItemTitle, setBillItemTitle] = useState('');
+  const [billItemCost, setBillItemCost] = useState('');
   const [splitRules, setSplitRules] = useState([]);
-  const [billItemUpdated, setBillItemUpdated] = useState(false);
 
   useEffect(() => {
-    api.getGroup(params.groupId).then((data) => {
-      setGroup(data);
-    });
-  }, [params.groupId]);
-  useEffect(() => {
-    api.getBill(params.billId).then((bill) => {
-      setBill(bill);
-    })
-  }, [params.billId]);
-  useEffect(() => {
-    api.getBillItem(params.billId, params.itemId).then((billItem) => {
-      setBillItem(billItem);
-      setBillItemTitle(billItem.title);
-      setBillItemCost(billItem.cost);
-      setSplitRules(billItem.agreement.rules);
-      setBillItemUpdated(false);
-    })
-  }, [params.billId, params.itemId, billItemUpdated]);
+    if (!billItem) {
+      return;
+    }
+    setBillItemTitle(billItem.title);
+    setBillItemCost(billItem.cost);
+    setSplitRules(billItem.agreement.rules);
+  }, [billItem]);
 
   const handleTitleChange = (e) => {
     setBillItemTitle(e.target.value);
@@ -54,7 +46,6 @@ export default function BillItemPage({params}) {
       Number.parseFloat(billItemCost),
       {rules: splitRules}
     );
-    setBillItemUpdated(true);
   }
 
   if (!group || !bill ||!billItem) {

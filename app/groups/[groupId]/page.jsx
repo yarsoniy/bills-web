@@ -6,7 +6,7 @@ import BillList from "@/app/groups/[groupId]/components/BillList";
 export default function GroupPage({params}) {
   return (
     <>
-      <Group groupId={params.groupId} />
+      <Group />
       <BillList groupId={params.groupId} />
     </>
   )

@@ -1,21 +1,15 @@
 import {Chip, Divider, IconButton, Paper, Stack} from "@mui/material";
 import styles from "../styles.module.css";
 import AddIcon from "@mui/icons-material/Add";
-import {useEffect, useState} from "react";
+import {useContext, useEffect, useState} from "react";
 import SingleTextDialog from "@/app/components/SingleTextDialog";
 import {api} from "@/app/api/api";
+import {GroupContext} from "@/app/groups/[groupId]/GroupProvider";
 
-export default function Group({groupId}) {
-  const [group, setGroup] = useState(null);
-  const [groupOutdated, setGroupOutdated] = useState(false);
+export default function Group() {
+  const group = useContext(GroupContext);
+
   const [openNewParticipantDialog, setOpenNewParticipantDialog] = useState(false);
-
-  useEffect(() => {
-    api.getGroup(groupId).then((data) => {
-      setGroup(data);
-      setGroupOutdated(false);
-    });
-  }, [groupId, groupOutdated])
 
   const handleAddParticipantClick = () => {
     setOpenNewParticipantDialog(true);
@@ -24,8 +18,7 @@ export default function Group({groupId}) {
     setOpenNewParticipantDialog(false);
   }
   const handleNewParticipantSave = async (input) => {
-    await api.createParticipant(groupId, input);
-    setGroupOutdated(true);
+    await api.createParticipant(group.id, input);
   }
 
   if (!group) {

@@ -1,31 +1,21 @@
 'use client';
 
-import {useEffect, useState} from "react";
+import {useContext, useEffect, useState} from "react";
 import {api} from "@/app/api/api";
 import styles from "./styles.module.css";
 import List from "@mui/material/List";
 import {Button, ListItem, ListItemButton, ListItemText} from "@mui/material";
 import AddBillItemDialog from "@/app/groups/[groupId]/bills/[billId]/components/AddBillItemDialog";
-import BallanceDetailsTable from "@/app/groups/[groupId]/bills/[billId]/components/BillParticipantSummary";
 import BillParticipantSummary from "@/app/groups/[groupId]/bills/[billId]/components/BillParticipantSummary";
+import {GroupContext} from "@/app/groups/[groupId]/GroupProvider";
+import {BillContext} from "@/app/groups/[groupId]/bills/[billId]/BillProvider";
+import {useRouter} from "next/navigation";
 
-export default function BillPage({params}) {
-  const [group, setGroup] = useState(null);
-  const [bill, setBill] = useState(null);
-  const [billUpdated, setBillUpdated] = useState(false);
+export default function BillPage() {
+  const router = useRouter();
+  const group = useContext(GroupContext);
+  const bill = useContext(BillContext);
   const [openAddItemDialog, setOpenAddItemDialog] = useState(false);
-
-  useEffect(() => {
-    api.getGroup(params.groupId).then((data) => {
-      setGroup(data);
-    });
-  }, [params.groupId]);
-  useEffect(() => {
-    api.getBill(params.billId).then((bill) => {
-      setBill(bill);
-      setBillUpdated(false);
-    })
-  }, [params.billId, billUpdated]);
 
   const handleAddItemClick = () => {
     setOpenAddItemDialog(true);
@@ -35,7 +25,6 @@ export default function BillPage({params}) {
   }
   const handleSaveAddItemDialog = async (title, cost) => {
     await api.createBillItem(bill.id, title, cost);
-    setBillUpdated(true);
   }
 
   if (!bill || !group) {
@@ -61,7 +50,7 @@ export default function BillPage({params}) {
           <ListItemButton
             className={styles.billItemContainer}
             key={billItem.id}
-            href={"/groups/"+group.id+"/bills/"+bill.id+"/items/"+billItem.id}
+            onClick={() => router.push("/groups/"+group.id+"/bills/"+bill.id+"/items/"+billItem.id)}
           >
             <ListItem>
               <ListItemText primary={billItem.title} secondary={billItem.cost} />
