@@ -7,7 +7,7 @@ import {api} from "@/app/api/api";
 import {GroupContext} from "@/app/groups/[groupId]/GroupProvider";
 
 export default function Group() {
-  const group = useContext(GroupContext);
+  const [group, refreshGroup] = useContext(GroupContext);
 
   const [openNewParticipantDialog, setOpenNewParticipantDialog] = useState(false);
 
@@ -19,6 +19,7 @@ export default function Group() {
   }
   const handleNewParticipantSave = async (input) => {
     await api.createParticipant(group.id, input);
+    refreshGroup();
   }
 
   return (

@@ -7,13 +7,11 @@ import {Button, TextField} from "@mui/material";
 import BillItemShares from "@/app/groups/[groupId]/bills/[billId]/items/[itemId]/components/BillItemShares";
 import SplitAgreement from "@/app/groups/[groupId]/bills/[billId]/items/[itemId]/components/SplitAgreement";
 import {GroupContext} from "@/app/groups/[groupId]/GroupProvider";
-import {BillContext} from "@/app/groups/[groupId]/bills/[billId]/BillProvider";
 import {BillItemContext} from "@/app/groups/[groupId]/bills/[billId]/items/[itemId]/BillItemProvider";
 
 export default function BillItemPage({params}) {
-  const group = useContext(GroupContext);
-  const bill = useContext(BillContext);
-  const billItem = useContext(BillItemContext);
+  const [group] = useContext(GroupContext);
+  const [billItem, refreshBillItem] = useContext(BillItemContext);
 
   const [billItemTitle, setBillItemTitle] = useState('');
   const [billItemCost, setBillItemCost] = useState('');
@@ -46,6 +44,7 @@ export default function BillItemPage({params}) {
       Number.parseFloat(billItemCost),
       {rules: splitRules}
     );
+    refreshBillItem();
   }
 
   const shares = {};

@@ -17,7 +17,7 @@ export default function BillItemShares({participants, shares}) {
             {participants.map((p) =>
               <TableRow key={p.id}>
                 <TableCell>{p.name}</TableCell>
-                <TableCell align="right">{shares[p.id]}</TableCell>
+                <TableCell align="right">{shares[p.id] ? shares[p.id] : 0}</TableCell>
               </TableRow>
             )}
           </TableBody>

@@ -13,8 +13,8 @@ import {useRouter} from "next/navigation";
 
 export default function BillPage() {
   const router = useRouter();
-  const group = useContext(GroupContext);
-  const bill = useContext(BillContext);
+  const [group] = useContext(GroupContext);
+  const [bill, refreshBill] = useContext(BillContext);
   const [openAddItemDialog, setOpenAddItemDialog] = useState(false);
 
   const handleAddItemClick = () => {
@@ -25,6 +25,7 @@ export default function BillPage() {
   }
   const handleSaveAddItemDialog = async (title, cost) => {
     await api.createBillItem(bill.id, title, cost);
+    refreshBill();
   }
 
   return (

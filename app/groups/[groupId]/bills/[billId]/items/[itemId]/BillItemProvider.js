@@ -10,14 +10,22 @@ export const BillItemContext = createContext(null);
 export default function BillItemProvider({children}) {
   const params = useParams();
   const [data, setData] = useState(null);
+  const [needRefresh, setNeedRefresh] = useState(false);
 
   useEffect(() => {
-    api.getBillItem(params.billId, params.itemId).then((data) => {setData(data)})
-  }, [params.billId, params.itemId]);
+    api.getBillItem(params.billId, params.itemId).then((data) => {
+      setData(data);
+      setNeedRefresh(false);
+    })
+  }, [params.billId, params.itemId, needRefresh]);
+
+  const refresh = () => {
+    setNeedRefresh(true);
+  }
 
   if (!data) {
     return <Loader/>
   }
 
-  return <BillItemContext.Provider value={data}>{children}</BillItemContext.Provider>;
+  return <BillItemContext.Provider value={[data, refresh]}>{children}</BillItemContext.Provider>;
 }
