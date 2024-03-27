@@ -1,19 +1,19 @@
-import {useState} from "react";
+import {ReactNode, useState} from "react";
 import {Button, Dialog, DialogActions, DialogContent, DialogTitle, TextField} from "@mui/material";
 
-export default function SingleTextDialog({title, inputLabel, open, onSave, onClose}) {
-  const [inputValue, setInputValue] = useState('');
-  const [waitingSave, setWaitingSave] = useState(false);
+export default function SingleTextDialog({title, inputLabel, open, onSave, onClose}): ReactNode {
+  const [inputValue, setInputValue] = useState<string>('');
+  const [waitingSave, setWaitingSave] = useState<boolean>(false);
 
-  const handleValueChange = (e) => {
+  const handleValueChange = (e):void => {
     setInputValue(e.target.value);
   }
-  const handleClose = () => {
+  const handleClose = ():void => {
     setInputValue('');
     onClose();
   }
 
-  const handleSave = () => {
+  const handleSave = ():void => {
     if (waitingSave) {
       return;
     }
