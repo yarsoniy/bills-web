@@ -1,15 +1,19 @@
 import {Button, Dialog, DialogActions, DialogContent, DialogTitle, Stack, TextField} from "@mui/material";
-import {useState} from "react";
+import {ChangeEvent, useState} from "react";
 
-export default function AddBillItemDialog({open, onSave, onClose}) {
+export default function AddBillItemDialog({open, onSave, onClose}: {
+  open: boolean,
+  onSave: (title: string, cost: number) => Promise<void>,
+  onClose: () => void,
+}) {
   const [waitingSave, setWaitingSave] = useState(false);
   const [title, setTitle] = useState('');
   const [cost, setCost] = useState('');
 
-  const handleTitleChange = (e) => {
+  const handleTitleChange = (e: ChangeEvent<HTMLInputElement>) => {
     setTitle(e.target.value);
   }
-  const handleCostChange = (e) => {
+  const handleCostChange = (e: ChangeEvent<HTMLInputElement>) => {
     setCost(e.target.value);
   }
 

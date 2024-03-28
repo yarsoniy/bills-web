@@ -23,7 +23,7 @@ export default function BillPage() {
   const handleCloseAddItemDialog = () => {
     setOpenAddItemDialog(false);
   }
-  const handleSaveAddItemDialog = async (title, cost) => {
+  const handleSaveAddItemDialog = async (title: string, cost: number) => {
     await api.createBillItem(bill.id, title, cost);
     refreshBill();
   }

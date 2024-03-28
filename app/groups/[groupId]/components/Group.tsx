@@ -17,7 +17,7 @@ export default function Group() {
   const handleNewParticipantDialogClose = () => {
     setOpenNewParticipantDialog(false);
   }
-  const handleNewParticipantSave = async (input) => {
+  const handleNewParticipantSave = async (input: string) => {
     await api.createParticipant(group.id, input);
     refreshGroup();
   }

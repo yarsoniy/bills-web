@@ -3,10 +3,15 @@ import {useEffect, useState} from "react";
 import {api} from "@/app/api/api";
 import EditIcon from "@mui/icons-material/Edit";
 import EditDepositsDialog from "@/app/groups/[groupId]/bills/[billId]/components/EditDepositsDialog";
+import {Participant} from "@/app/api/types/group";
+import {MoneyBreakdown, ParticipantSummary} from "@/app/api/types/bill";
 
-export default function BillParticipantSummary({billId, participants}) {
+export default function BillParticipantSummary({billId, participants}: {
+  billId: string,
+  participants: Participant[]
+}) {
   const [summaryChanged, setSummaryChanged] = useState(false);
-  const [summary, setSummary] = useState({
+  const [summary, setSummary] = useState<ParticipantSummary>({
     deposits: {values: {}},
     breakdown: {values: {}},
     balance: {values: {}},
@@ -20,7 +25,7 @@ export default function BillParticipantSummary({billId, participants}) {
   const handleCloseEditDepositsDialog = () => {
     setOpenEditDepositsDialog(false);
   }
-  const handleSaveDeposits = async (changedDeposits) => {
+  const handleSaveDeposits = async (changedDeposits: MoneyBreakdown) => {
     await api.putBillParticipantDeposits(billId, {values: changedDeposits})
     handleCloseEditDepositsDialog();
     setSummaryChanged(true);
@@ -33,7 +38,7 @@ export default function BillParticipantSummary({billId, participants}) {
     })
   }, [billId, summaryChanged]);
 
-  const [deposits, breakdown, balance] = [{}, {}, {}];
+  const [deposits, breakdown, balance]: [MoneyBreakdown, MoneyBreakdown, MoneyBreakdown] = [{}, {}, {}];
   for (let index in participants) {
     const p = participants[index];
     const id = p.id

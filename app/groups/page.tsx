@@ -8,11 +8,12 @@ import styles from "./styles.module.css"
 import {useEffect, useState} from "react";
 import SingleTextDialog from "@/app/components/SingleTextDialog";
 import {api} from "@/app/api/api";
+import {GroupPreview} from "@/app/api/types/group";
 
 export default function GroupsPage() {
-  const [openNewGroupDialog, setOpenNewGroupGialog] = useState(false);
-  const [data, setData] = useState([]);
-  const [newGroupSaved, setNewGroupSaved] = useState(false);
+  const [openNewGroupDialog, setOpenNewGroupDialog] = useState<boolean>(false);
+  const [data, setData] = useState<GroupPreview[]>([]);
+  const [newGroupSaved, setNewGroupSaved] = useState<boolean>(false);
 
   useEffect(() => {
     api.getAllGroups().then((data) => {
@@ -22,14 +23,14 @@ export default function GroupsPage() {
   }, [newGroupSaved]);
 
   const handleOpenNewGroupDialog = () => {
-    setOpenNewGroupGialog(true);
+    setOpenNewGroupDialog(true);
   }
 
   const handleCloseNewGroupDialog = () => {
-    setOpenNewGroupGialog(false);
+    setOpenNewGroupDialog(false);
   }
 
-  const handleSaveNewGroup = async (input) => {
+  const handleSaveNewGroup = async (input: string) => {
     await api.createGroup(input);
     setNewGroupSaved(true);
   }

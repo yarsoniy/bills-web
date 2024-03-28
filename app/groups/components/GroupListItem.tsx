@@ -1,8 +1,11 @@
 import { Chip, Divider, Paper, Stack } from "@mui/material";
 import styles from "../styles.module.css"
 import Link from "next/link";
+import {GroupPreview} from "@/app/api/types/group";
 
-export default function GroupListItem({group}) {
+export default function GroupListItem({group}: {
+    group: GroupPreview
+}) {
   return (
     <Paper>
       <div className={styles.details}>
