@@ -1,6 +1,6 @@
 'use client';
 
-import {useContext, useEffect, useState} from "react";
+import {ChangeEvent, useContext, useEffect, useState} from "react";
 import {api} from "@/app/api/api";
 import styles from "@/app/groups/[groupId]/bills/[billId]/items/[itemId]/styles.module.css";
 import {Button, TextField} from "@mui/material";
@@ -8,31 +8,38 @@ import BillItemShares from "@/app/groups/[groupId]/bills/[billId]/items/[itemId]
 import SplitAgreement from "@/app/groups/[groupId]/bills/[billId]/items/[itemId]/components/SplitAgreement";
 import {GroupContext} from "@/app/groups/[groupId]/GroupProvider";
 import {BillItemContext} from "@/app/groups/[groupId]/bills/[billId]/items/[itemId]/BillItemProvider";
+import {SplitRule} from "@/app/api/types/billItem";
+import {MoneyBreakdown} from "@/app/api/types/bill";
 
-export default function BillItemPage({params}) {
+export default function BillItemPage({params}: {
+  params: {
+    billId: string,
+    itemId: string
+  }
+}) {
   const [group] = useContext(GroupContext);
   const [billItem, refreshBillItem] = useContext(BillItemContext);
 
   const [billItemTitle, setBillItemTitle] = useState('');
   const [billItemCost, setBillItemCost] = useState('');
-  const [splitRules, setSplitRules] = useState([]);
+  const [splitRules, setSplitRules] = useState<SplitRule[]>([]);
 
   useEffect(() => {
     if (!billItem) {
       return;
     }
     setBillItemTitle(billItem.title);
-    setBillItemCost(billItem.cost);
+    setBillItemCost(String(billItem.cost));
     setSplitRules(billItem.agreement.rules);
   }, [billItem]);
 
-  const handleTitleChange = (e) => {
+  const handleTitleChange = (e: ChangeEvent<HTMLInputElement>) => {
     setBillItemTitle(e.target.value);
   }
-  const handleCostChange = (e) => {
+  const handleCostChange = (e: ChangeEvent<HTMLInputElement>) => {
     setBillItemCost(e.target.value);
   }
-  const handleChangeSplitRules = (newSplitRules) => {
+  const handleChangeSplitRules = (newSplitRules: SplitRule[]) => {
     setSplitRules(newSplitRules);
   }
 
@@ -47,7 +54,7 @@ export default function BillItemPage({params}) {
     refreshBillItem();
   }
 
-  const shares = {};
+  const shares: MoneyBreakdown = {};
   group.participants.map((p) => {
     shares[p.id] = billItem.costBreakdown.values[p.id];
   })

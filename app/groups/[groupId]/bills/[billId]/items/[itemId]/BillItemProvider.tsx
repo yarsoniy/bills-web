@@ -1,15 +1,31 @@
 'use client'
 
-import {createContext, useEffect, useState} from "react";
+import React, {createContext, useEffect, useState} from "react";
 import {api} from "@/app/api/api";
 import {useParams} from "next/navigation";
 import Loader from "@/app/components/Loader";
+import {BillItem} from "@/app/api/types/billItem";
+import {number} from "prop-types";
 
-export const BillItemContext = createContext(null);
+const defaultData: BillItem = {
+  id: '',
+  title: '',
+  cost: 0,
+  agreement: {
+    rules: []
+  },
+  costBreakdown: {values: {}}
+}
+export const BillItemContext = createContext<[BillItem, () => void]>([defaultData, () => {}]);
 
-export default function BillItemProvider({children}) {
-  const params = useParams();
-  const [data, setData] = useState(null);
+export default function BillItemProvider({children}: {
+  children: React.ReactNode
+}) {
+  const params: {
+    billId: string,
+    itemId: string
+  } = useParams();
+  const [data, setData] = useState(defaultData);
   const [needRefresh, setNeedRefresh] = useState(false);
 
   useEffect(() => {
