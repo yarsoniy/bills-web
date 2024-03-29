@@ -1,4 +1,5 @@
-import {Box, Chip, FormControl, InputLabel, MenuItem, OutlinedInput, Select} from "@mui/material";
+import {Box, Chip, FormControl, InputLabel, MenuItem, OutlinedInput, Select, SelectChangeEvent} from "@mui/material";
+import {Participant} from "@/app/api/types/group";
 
 const ITEM_HEIGHT = 48;
 const ITEM_PADDING_TOP = 8;
@@ -11,14 +12,21 @@ const MenuProps = {
   },
 };
 
-export default function ParticipantMultiSelect({label, participants, selected, onSelect}) {
-  const participantNames = {};
+export default function ParticipantMultiSelect({label, participants, selected, onSelect}: {
+  label: string,
+  participants: Participant[],
+  selected: string[],
+  onSelect: (selected: string[]) => void,
+}) {
+  const participantNames: {[key: string]: string} = {};
   participants.map((p) => {
     participantNames[p.id] = p.name;
   });
 
-  const handleChange = (e) => {
-    onSelect(e.target.value);
+  const handleChange = (e: SelectChangeEvent<string[]>) => {
+    const {target: { value }} = e;
+    const selected = typeof value === 'string' ? value.split(',') : value;
+    onSelect(selected);
   }
 
   return (

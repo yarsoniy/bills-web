@@ -11,8 +11,14 @@ import {
 import ClearIcon from '@mui/icons-material/Clear';
 import ParticipantMultiSelect from "@/app/groups/[groupId]/bills/[billId]/items/[itemId]/components/ParticipantMultiSelect";
 import styles from "../styles.module.css";
+import {Participant} from "@/app/api/types/group";
+import {SplitRule} from "@/app/api/types/billItem";
 
-export default function SplitAgreement({participants, splitRules, onChange}) {
+export default function SplitAgreement({participants, splitRules, onChange}: {
+  participants: Participant[],
+  splitRules: SplitRule[],
+  onChange: (rules: SplitRule[]) => void
+}) {
   const handleAddSplitRule = () => {
     const newSplitRules = [...splitRules, {
       itemPayers: [],
@@ -20,17 +26,17 @@ export default function SplitAgreement({participants, splitRules, onChange}) {
     }];
     onChange(newSplitRules);
   }
-  const handleRemoveSplitRule = (ruleIndex) => {
+  const handleRemoveSplitRule = (ruleIndex: number) => {
     const newSplitRules = splitRules.slice();
     newSplitRules.splice(ruleIndex, 1);
     onChange(newSplitRules);
   }
-  const handlePayerSelect = (ruleIndex, selectedValues) => {
+  const handlePayerSelect = (ruleIndex: number, selectedValues: string[]) => {
     const newSplitRules = splitRules.slice();
     newSplitRules[ruleIndex].itemPayers = selectedValues;
     onChange(newSplitRules);
   }
-  const handleUserSelect = (ruleIndex, selectedValues) => {
+  const handleUserSelect = (ruleIndex: number, selectedValues: string[]) => {
     const newSplitRules = splitRules.slice();
     newSplitRules[ruleIndex].itemUsers = selectedValues;
     onChange(newSplitRules);
