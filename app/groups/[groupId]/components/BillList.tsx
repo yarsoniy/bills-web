@@ -13,12 +13,14 @@ export default function BillList({groupId}: {
   const router = useRouter();
   const [openNewBillDialog, setOpenNewBillDialog] = useState(false);
   const [bills, setBills] = useState<BillPreview[]>([]);
+  const [billsUpdated, setBillsUpdated] = useState(false);
 
   useEffect(() => {
     api.getBills(groupId).then((data) => {
-      setBills(data)
+      setBills(data);
+      setBillsUpdated(false);
     });
-  }, [groupId]);
+  }, [groupId, billsUpdated]);
 
   const handleNewBillClick = () => {
     setOpenNewBillDialog(true);
@@ -28,6 +30,7 @@ export default function BillList({groupId}: {
   }
   const handleSaveNewBill = async(title: string) => {
     await api.createBill(groupId, title);
+    setBillsUpdated(true);
   }
 
   return (
