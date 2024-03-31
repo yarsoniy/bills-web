@@ -1,11 +1,12 @@
 /** @type {import('next').NextConfig} */
 
 const nextConfig = {
+  output: "standalone",
   rewrites: async () => {
     return [
       {
         source: "/api/:path*",
-        destination: "http://localhost:3001/api/:path*",
+        destination: "http://host.docker.internal:3001/api/:path*",
       }
     ];
   }
