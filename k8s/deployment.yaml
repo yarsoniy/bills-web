@@ -1,0 +1,24 @@
+kind: Deployment
+apiVersion: apps/v1
+metadata:
+  name: bills-web-deploy
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: bills-web
+  strategy:
+    type: RollingUpdate
+    rollingUpdate:
+      maxUnavailable: 1
+      maxSurge: 1
+  template:
+    metadata:
+      labels:
+        app: bills-web
+    spec:
+      containers:
+        - name: bills-web
+          image: bills-web:latest
+          ports:
+            - containerPort: 3000
