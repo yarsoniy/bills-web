@@ -1,7 +1,7 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: bills-web-deploy
+  name: bills-web
 spec:
   replicas: 1
   selector:
@@ -20,5 +20,6 @@ spec:
       containers:
         - name: bills-web
           image: bills-web:latest
+          imagePullPolicy: Never
           ports:
             - containerPort: 3000

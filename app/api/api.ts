@@ -4,17 +4,17 @@ import {BillItem, SplitAgreement} from "@/app/api/types/billItem";
 
 export const api = {
   getAllGroups: async (): Promise<GroupPreview[]> => {
-    const response = await fetch('/api/v1/participant_group');
+    const response = await fetch('/be/api/v1/participant_group');
     const data = await response.json();
     return data.data;
   },
   getGroup: async (groupId: string): Promise<Group> => {
-    const response = await fetch('/api/v1/participant_group/' + groupId);
+    const response = await fetch('/be/api/v1/participant_group/' + groupId);
     const data = await response.json();
     return data.data;
   },
   createGroup: async (title: string) => {
-    const response = await fetch('/api/v1/participant_group/', {
+    const response = await fetch('/be/api/v1/participant_group/', {
       method: 'POST',
       body: JSON.stringify({title: title})
     });
@@ -23,7 +23,7 @@ export const api = {
     }
   },
   createParticipant: async (groupId: string, name: string) => {
-    const response = await fetch('/api/v1/participant_group/' + groupId + '/participant', {
+    const response = await fetch('/be/api/v1/participant_group/' + groupId + '/participant', {
       method: 'POST',
       body: JSON.stringify({name: name})
     });
@@ -32,7 +32,7 @@ export const api = {
     }
   },
   createBill: async (groupId: string, title: string) => {
-    const response = await fetch('/api/v1/participant_group/' + groupId + '/bill', {
+    const response = await fetch('/be/api/v1/participant_group/' + groupId + '/bill', {
       method: 'POST',
       body: JSON.stringify({title: title})
     });
@@ -41,17 +41,17 @@ export const api = {
     }
   },
   getBills: async (groupId: string): Promise<BillPreview[]> => {
-    const response = await fetch('/api/v1/participant_group/' + groupId + '/bill');
+    const response = await fetch('/be/api/v1/participant_group/' + groupId + '/bill');
     const data = await response.json();
     return data.data;
   },
   getBill: async (billId: string): Promise<Bill> => {
-    const response = await fetch('/api/v1/bill/' + billId);
+    const response = await fetch('/be/api/v1/bill/' + billId);
     const data = await response.json();
     return data.data;
   },
   createBillItem: async (billId: string, title: string, cost: number) => {
-    const response = await fetch('/api/v1/bill/' + billId + '/item', {
+    const response = await fetch('/be/api/v1/bill/' + billId + '/item', {
       method: 'POST',
       body: JSON.stringify({
         title: title,
@@ -63,12 +63,12 @@ export const api = {
     }
   },
   getBillParticipantSummary: async (billId: string): Promise<ParticipantSummary> => {
-    const response = await fetch('/api/v1/bill/' + billId + '/participant_summary');
+    const response = await fetch('/be/api/v1/bill/' + billId + '/participant_summary');
     const data = await response.json();
     return data.data;
   },
   putBillParticipantDeposits: async (billId: string, deposits: {values: MoneyBreakdown}) => {
-    const response = await fetch('/api/v1/bill/' + billId + '/deposits', {
+    const response = await fetch('/be/api/v1/bill/' + billId + '/deposits', {
       method: 'PUT',
       body: JSON.stringify(deposits)
     });
@@ -77,12 +77,12 @@ export const api = {
     }
   },
   getBillItem: async (billId: string, itemId: string): Promise<BillItem> => {
-    const response = await fetch(`/api/v1/bill/${billId}/item/${itemId}`);
+    const response = await fetch(`/be/api/v1/bill/${billId}/item/${itemId}`);
     const data = await response.json();
     return data.data;
   },
   putBillItem: async (billId: string, billItemId: string, title: string, cost: number, agreement: SplitAgreement) => {
-    const response = await fetch('/api/v1/bill/' + billId + '/item/' + billItemId, {
+    const response = await fetch('/be/api/v1/bill/' + billId + '/item/' + billItemId, {
       method: 'PUT',
       body: JSON.stringify({
         title: title,
