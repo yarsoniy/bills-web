@@ -14,7 +14,7 @@ export const api = {
     return data.data;
   },
   createGroup: async (title: string) => {
-    const response = await fetch('/be/api/v1/participant_group/', {
+    const response = await fetch('/be/api/v1/participant_group', {
       method: 'POST',
       body: JSON.stringify({title: title})
     });
