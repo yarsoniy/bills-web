@@ -1,12 +1,13 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: bills-web
+  name: {{.Values.appName}}
+  namespace: {{.Release.Namespace}}
 spec:
   replicas: 1
   selector:
     matchLabels:
-      app: bills-web
+      app: {{.Values.appName}}
   strategy:
     type: RollingUpdate
     rollingUpdate:
@@ -15,12 +16,12 @@ spec:
   template:
     metadata:
       labels:
-        app: bills-web
+        app: {{.Values.appName}}
     spec:
       imagePullSecrets:
         - name: ghcr-pull-secret
       containers:
-        - name: bills-web
+        - name: {{.Values.appName}}
           image: ghcr.io/yarsoniy/bills-web:main
           imagePullPolicy: Always
           ports:
